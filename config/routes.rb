@@ -4,6 +4,8 @@ Carrierwave::Application.routes.draw do
   get "article_image/show"
 
   resources :articles
+  
+  root :to => 'articles#index'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
