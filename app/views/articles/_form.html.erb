@@ -26,9 +26,11 @@
 <% if article_image.object.new_record? %>
 
 <%= article_image.file_field :image %>
-<% else %>
-<%= image_tag(article_image.object.image.url(:thumb)) %>
+<%= article_image.hidden_field :image_cache %>
 
+<% else %>
+
+<%= image_tag(article_image.object.image.url(:thumb)) %>
 <%= article_image.check_box :remove_image %>
 
 <% end %>
