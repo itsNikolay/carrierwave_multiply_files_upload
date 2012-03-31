@@ -1,0 +1,8 @@
+<h1>Images</h1>
+<p>Listing all images</p>
+<% @article_images.each do |article_image| %>
+<p>	<%= link_to(image_tag(article_image.image.url(:thumb)), article_image.image.url) %>
+		<small> <%= article_image.image.file.filename %> - 
+			<%= number_to_human_size(article_image.image.file.size) %></small>
+	</p>
+<% end %>

@@ -1,0 +1,40 @@
+<%= form_for @article, :html => {:multipart => true} do |f| %>
+<% if @article.errors.any? %>
+<div id="error_explanation">
+	<h2><%= pluralize(@article.errors.count, "error") %> prohibited this article from being saved:</h2>
+	<ul>
+		<% @article.errors.full_messages.each do |msg| %>
+		<li>
+			<%= msg %>
+		</li>
+		<% end %>
+	</ul>
+</div>
+<% end %>
+<div class="field">
+	<%= f.label :title %>
+	<br />
+	<%= f.text_field :title %>
+</div>
+<div class="field">
+	<%= f.label :body %>
+	<br />
+	<%= f.text_area :body %>
+</div>
+<%= f.fields_for :article_images do |article_image| %>
+
+<% if article_image.object.new_record? %>
+
+<%= article_image.file_field :image %>
+<% else %>
+<%= image_tag(article_image.object.image.url(:thumb)) %>
+
+<%= article_image.check_box :remove_image %>
+
+<% end %>
+
+<% end %>
+
+<%= f.submit %>
+
+<% end %> 
