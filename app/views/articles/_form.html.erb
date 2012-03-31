@@ -30,7 +30,7 @@
 <% else %>
 
 <%= image_tag(article_image.object.image.url(:thumb)) %>
-<%= article_image.check_box :remove_image %>
+<%= article_image.check_box :_destroy %>
 
 <% end %>
 
