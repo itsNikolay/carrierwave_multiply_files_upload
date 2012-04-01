@@ -1,6 +1,7 @@
-# Carrierwave nested_attributes_form and multiply images uploding
+# Carrierwave nested_attributes_form and multiply images uploding tutorial
+Created on 01.04.2012 (with gem Carrierwave v 0.6.0 https://github.com/jnicklas/carrierwave)
 
-Our carrierwave images will be placed on Article model
+Carrierwave images will be located on model Article 
 <pre><code>$> rails g scaffold Article title body:text</pre></code>
 
 **Gemfile**
@@ -75,18 +76,18 @@ end
 
 **app/views/articles/_form.html.erb**
 <pre><code>
-	<%= form_for @article, :html => {:multipart => true} do |f| %>
-	. . .
-	<%= f.fields_for :article_images do |article_image| %>
-	<% if article_image.object.new_record? %>
-	<%= article_image.file_field :image %>
-	<% else %>
-	<%= image_tag(article_image.object.image.url(:thumb)) %>
-	<%= article_image.check_box :_destroy %>
-	<% end %>
-	<% end %>
-	. . .
-	<% end %> 
+<%= form_for @article, :html => {:multipart => true} do |f| %>
+. . .
+<%= f.fields_for :article_images do |article_image| %>
+<% if article_image.object.new_record? %>
+<%= article_image.file_field :image %>
+<% else %>
+<%= image_tag(article_image.object.image.url(:thumb)) %>
+<%= article_image.check_box :_destroy %>
+<% end %>
+<% end %>
+. . .
+<% end %> 
 </pre></code>
 
 **app/views/articles/show.html.erb**
