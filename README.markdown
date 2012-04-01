@@ -90,12 +90,11 @@ end
 </pre></code>
 
 **app/views/articles/show.html.erb**
-<code>
+
 	<% @article.article_images.each do |article_image| %>
-	<%= link_to(image_tag(article_image.image.url(:thumb)), 
-	article_image.image.url) %>
+	<%= link_to(image_tag(article_image.image.url(:thumb)),	article_image.image.url) %>
 	<% end %>
-</code>
+
 
 ## Configuration depends on your needs
 
