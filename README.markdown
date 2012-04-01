@@ -1,11 +1,12 @@
 
 
-<pre><code>$> rails g scaffold Article title body:text<pre><code>
+<pre><code>$> rails g scaffold Article title body:text</pre></code>
 
 Gemfile
-    #Add this gems
+<pre><code>#Add this gems
     gem 'carrierwave'
     gem 'rmagick'
+</pre></code>
 
 
     $> bundle
