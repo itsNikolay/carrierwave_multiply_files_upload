@@ -3,11 +3,11 @@
 $> rails g scaffold Article title body:text
 
 Gemfile
-```
-#Add this gems
-gem 'carrierwave'
-gem 'rmagick'
-```
+
+    #Add this gems
+    gem 'carrierwave'
+    gem 'rmagick'
+
 
 $> bundle
 
