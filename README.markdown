@@ -91,7 +91,6 @@ end
 
 **app/views/articles/show.html.erb**
 <code>
-	. . .
 	<p>
 	<b>Images:</b>
 	<% @article.article_images.each do |article_image| %>
@@ -99,7 +98,6 @@ end
 	article_image.image.url) %>
 	<% end %>
 	</p>
-	. . .
 </code>
 
 ## Configuration depends on your needs
