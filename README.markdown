@@ -1,10 +1,10 @@
-
+# Step-by-step to build carrierwave nested_attributes_form and myltiply images uploding
 
 <pre><code>$> rails g scaffold Article title body:text</pre></code>
 
 Gemfile
+(Add this gems)
 <pre><code>
-	#Add this gems
 gem 'carrierwave'
 gem 'rmagick'
 </pre></code>
@@ -57,7 +57,6 @@ app/controllers/articles_controller.rb
 def show
 @article = Article.find(params[:id])
 @images = @article.article_images # Add this line (extract all article's images)
-
 respond_to do |format|
   format.html # show.html.erb
   format.json { render json: @article }
@@ -69,7 +68,6 @@ def new
  @article.article_images.build # Adding this line
    #3.times {@article.article_images.build} # This line for multyply file upload with 
 one action
-
 respond_to do |format|
   format.html # new.html.erb
   format.json { render json: @article }
@@ -88,34 +86,22 @@ one action
 app/views/articles/_form.html.erb
 <pre><code>
 <%= form_for @article, :html => {:multipart => true} do |f| %>
-
 . . .
-
 <%= f.fields_for :article_images do |article_image| %>
-
 <% if article_image.object.new_record? %>
-
 <%= article_image.file_field :image %>
-
 <% else %>
-
 <%= image_tag(article_image.object.image.url(:thumb)) %>
 <%= article_image.check_box :_destroy %>
-
 <% end %>
-
 <% end %>
-
 . . .
-
 <% end %> 
 </pre></code>
-
 
 app/views/articles/show.html.erb
 <pre><code>
 . . .
-
 <p>
   <b>Images:</b>
   <% @article.article_images.each do |article_image| %>
@@ -123,6 +109,5 @@ app/views/articles/show.html.erb
 article_image.image.url) %>
 <% end %>
 </p>
-
 . . .
 </pre></code>
