@@ -1,6 +1,6 @@
-# Step-by-step to build carrierwave nested_attributes_form and multiply images uploding
+# Carrierwave nested_attributes_form and multiply images uploding
 
-## Our carrierwave images will be placed on Article model
+Our carrierwave images will be placed on Article model
 <pre><code>$> rails g scaffold Article title body:text</pre></code>
 
 **Gemfile**
@@ -56,7 +56,7 @@ end
 
 def new
 @article = Article.new
- @article.article_images.build # Adding this line
+  @article.article_images.build # Adding this line
    #3.times {@article.article_images.build} # This line for multyply file upload with one action
   respond_to do |format|
     format.html # new.html.erb
@@ -66,7 +66,7 @@ end
 
 def edit
 @article = Article.find(params[:id])
- @article.article_images.build # Adding this line
+  @article.article_images.build # Adding this line
   #3.times {@article.article_images.build} # This line for multyply file upload with one action
 end
 </pre></code>
@@ -75,32 +75,32 @@ end
 
 **app/views/articles/_form.html.erb**
 <pre><code>
-<%= form_for @article, :html => {:multipart => true} do |f| %>
-. . .
-<%= f.fields_for :article_images do |article_image| %>
-<% if article_image.object.new_record? %>
-<%= article_image.file_field :image %>
-<% else %>
-<%= image_tag(article_image.object.image.url(:thumb)) %>
-<%= article_image.check_box :_destroy %>
-<% end %>
-<% end %>
-. . .
-<% end %> 
+	<%= form_for @article, :html => {:multipart => true} do |f| %>
+	. . .
+	<%= f.fields_for :article_images do |article_image| %>
+	<% if article_image.object.new_record? %>
+	<%= article_image.file_field :image %>
+	<% else %>
+	<%= image_tag(article_image.object.image.url(:thumb)) %>
+	<%= article_image.check_box :_destroy %>
+	<% end %>
+	<% end %>
+	. . .
+	<% end %> 
 </pre></code>
 
 **app/views/articles/show.html.erb**
-<pre><code>
-. . .
-<p>
-<b>Images:</b>
-<% @article.article_images.each do |article_image| %>
-<%= link_to(image_tag(article_image.image.url(:thumb)), 
-article_image.image.url) %>
-<% end %>
-</p>
-. . .
-</pre></code>
+<code>
+	. . .
+	<p>
+	<b>Images:</b>
+	<% @article.article_images.each do |article_image| %>
+	<%= link_to(image_tag(article_image.image.url(:thumb)), 
+	article_image.image.url) %>
+	<% end %>
+	</p>
+	. . .
+</code>
 
 ## Configuration depends on your needs
 
