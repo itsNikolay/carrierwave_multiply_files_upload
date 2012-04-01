@@ -1,7 +1,7 @@
 # Carrierwave nested_attributes_form and multiply images uploding tutorial
 Created on 01.04.2012 (with gem Carrierwave v 0.6.0 https://github.com/jnicklas/carrierwave)
 
-Carrierwave images will be located on model Article 
+##Carrierwave images will be located on model Article 
 <pre><code>$> rails g scaffold Article title body:text</pre></code>
 
 **Gemfile**
