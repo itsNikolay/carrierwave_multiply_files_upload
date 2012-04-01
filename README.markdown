@@ -4,7 +4,7 @@
 
 Gemfile
 <pre><code>
-#Add this gems
+	#Add this gems
 gem 'carrierwave'
 gem 'rmagick'
 </pre></code>
@@ -20,7 +20,7 @@ $> bundle
 <pre><code>$> rails generate uploader Image</pre></code>
 
 app/uploaders/image_uploader.rb
-<pre><code>include CarrierWave::RMagick # Uncomment this line<pre><code>
+<pre><code>include CarrierWave::RMagick # Uncomment this line
 . . .
 
 version :thumb do # Uncomment this line
@@ -45,7 +45,7 @@ end
 app/models/article_image.rb
 <pre><code>
 class ArticleImages < ActiveRecord::Base
-#attr_accessible :image  
+	#attr_accessible :image  
   mount_uploader :image, ImageUploader  
   belongs_to :article
 end
@@ -67,7 +67,7 @@ end
 def new
 @article = Article.new
  @article.article_images.build # Adding this line
-#3.times {@article.article_images.build} # This line for multyply file upload with 
+   #3.times {@article.article_images.build} # This line for multyply file upload with 
 one action
 
 respond_to do |format|
@@ -79,7 +79,7 @@ end
  def edit
 @article = Article.find(params[:id])
  @article.article_images.build # Adding this line
-#3.times {@article.article_images.build} # This line for multyply file upload with 
+	#3.times {@article.article_images.build} # This line for multyply file upload with 
 one action
   end
   </pre></code>
