@@ -26,9 +26,7 @@ $> bundle
 <pre><code>
 class Article < ActiveRecord::Base
   #attr_accessible :title, :body, :article_images_attributes
-
-  has_many :article_images, :dependent => :destroy
-  
+  has_many :article_images, :dependent => :destroy  
   accepts_nested_attributes_for :article_images, allow_destroy: true 
 end
 </pre></code>
@@ -37,7 +35,7 @@ end
 **app/models/article_image.rb**
 <pre><code>
 class ArticleImages < ActiveRecord::Base
-#attr_accessible :image  
+  #attr_accessible :image  
   mount_uploader :image, ImageUploader  
   belongs_to :article
 end
@@ -48,32 +46,30 @@ end
 **app/controllers/articles_controller.rb**
 <pre><code>
 def show
-@article = Article.find(params[:id])
-@images = @article.article_images # Add this line (extract all article's images)
-respond_to do |format|
-  format.html # show.html.erb
-  format.json { render json: @article }
-end
+  @article = Article.find(params[:id])
+  @images = @article.article_images # Add this line (extract all article's images)
+  respond_to do |format|
+    format.html # show.html.erb
+    format.json { render json: @article }
   end
+end
 
 def new
 @article = Article.new
  @article.article_images.build # Adding this line
-   #3.times {@article.article_images.build} # This line for multyply file upload with 
-one action
-respond_to do |format|
-  format.html # new.html.erb
-  format.json { render json: @article }
-end
+   #3.times {@article.article_images.build} # This line for multyply file upload with one action
+  respond_to do |format|
+    format.html # new.html.erb
+    format.json { render json: @article }
   end
+end
 
- def edit
+def edit
 @article = Article.find(params[:id])
  @article.article_images.build # Adding this line
-#3.times {@article.article_images.build} # This line for multyply file upload with 
-one action
-  end
-  </pre></code>
+  #3.times {@article.article_images.build} # This line for multyply file upload with one action
+end
+</pre></code>
   
 ## View
 
@@ -97,8 +93,8 @@ one action
 <pre><code>
 . . .
 <p>
-  <b>Images:</b>
-  <% @article.article_images.each do |article_image| %>
+<b>Images:</b>
+<% @article.article_images.each do |article_image| %>
 <%= link_to(image_tag(article_image.image.url(:thumb)), 
 article_image.image.url) %>
 <% end %>
@@ -118,4 +114,4 @@ end # And this =)
 . . .
 </pre></code>
 
-http://localhost:3000/articles
+_http://localhost:3000/articles_
