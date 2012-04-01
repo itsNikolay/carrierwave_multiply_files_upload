@@ -1,36 +1,28 @@
-# Step-by-step to build carrierwave nested_attributes_form and myltiply images uploding
+# Step-by-step to build carrierwave nested_attributes_form and multiply images uploding
 
+## Our carrierwave images will be placed on Article model
 <pre><code>$> rails g scaffold Article title body:text</pre></code>
 
-Gemfile
-(Add this gems)
+**Gemfile**
 <pre><code>
+. . .
 gem 'carrierwave'
 gem 'rmagick'
+. . .
 </pre></code>
 
 <pre><code>
 $> bundle
 </pre></code>
 
+## Model
 <pre><code>$> rails g model Article_image image article_id</pre></code>
 
 <pre><code>$> rake db:migrate</pre></code>
 
 <pre><code>$> rails generate uploader Image</pre></code>
 
-app/uploaders/image_uploader.rb
-<pre><code>include CarrierWave::RMagick # Uncomment this line
-. . .
-
-version :thumb do # Uncomment this line
-process :resize_to_limit => [200, 200] # Change on this line
-end # And this =)
-. . .
-</pre></code>
-
-
-app/models/article.rb
+**app/models/article.rb**
 <pre><code>
 class Article < ActiveRecord::Base
   #attr_accessible :title, :body, :article_images_attributes
@@ -42,17 +34,18 @@ end
 </pre></code>
 
 
-app/models/article_image.rb
+**app/models/article_image.rb**
 <pre><code>
 class ArticleImages < ActiveRecord::Base
-	#attr_accessible :image  
+#attr_accessible :image  
   mount_uploader :image, ImageUploader  
   belongs_to :article
 end
 </pre></code>
 
+## Controller
 
-app/controllers/articles_controller.rb
+**app/controllers/articles_controller.rb**
 <pre><code>
 def show
 @article = Article.find(params[:id])
@@ -77,13 +70,14 @@ end
  def edit
 @article = Article.find(params[:id])
  @article.article_images.build # Adding this line
-	#3.times {@article.article_images.build} # This line for multyply file upload with 
+#3.times {@article.article_images.build} # This line for multyply file upload with 
 one action
   end
   </pre></code>
+  
+## View
 
-
-app/views/articles/_form.html.erb
+**app/views/articles/_form.html.erb**
 <pre><code>
 <%= form_for @article, :html => {:multipart => true} do |f| %>
 . . .
@@ -99,15 +93,29 @@ app/views/articles/_form.html.erb
 <% end %> 
 </pre></code>
 
-app/views/articles/show.html.erb
+**app/views/articles/show.html.erb**
 <pre><code>
 . . .
 <p>
   <b>Images:</b>
   <% @article.article_images.each do |article_image| %>
-	<%= link_to(image_tag(article_image.image.url(:thumb)), 
+<%= link_to(image_tag(article_image.image.url(:thumb)), 
 article_image.image.url) %>
 <% end %>
 </p>
 . . .
 </pre></code>
+
+## Configuration depends on your needs
+
+**app/uploaders/image_uploader.rb**
+<pre><code>
+include CarrierWave::RMagick # Uncomment this line
+. . .
+version :thumb do # Uncomment this line
+process :resize_to_limit => [200, 200] # Change on this line
+end # And this =)
+. . .
+</pre></code>
+
+http://localhost:3000/articles
